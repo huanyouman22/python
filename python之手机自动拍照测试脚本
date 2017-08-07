@@ -1,0 +1,35 @@
+#!/usr/bin/python
+#encoding=utf-8
+#公司同事的手机自动拍照脚本！
+import time
+import sys
+from com.android.monkeyrunner import MonkeyRunner as mr 
+from com.android.monkeyrunner import MonkeyDevice as md 
+from com.android.monkeyrunner import MonkeyImage as mi 
+
+device=mr.waitForConnection() 
+device.startActivity() 
+
+mr.sleep(5.0) 
+for i in range(1,1001):
+	for j in range(1,5):
+		mr.sleep(5.0)
+		device.startActivity(component='com.mediatek.camera/com.android.camera.CameraLauncher')
+		mr.sleep(4.0) 
+		device.press('KEYCODE_CAMERA') 
+		mr.sleep(5.0)
+		device.touch(690,37,'DOWN_AND_UP') 
+		mr.sleep(5.0)
+		device.press('KEYCODE_CAMERA')
+		mr.sleep(5.0)
+		device.touch(690,37,'DOWN_AND_UP') 
+	mr.sleep(4.0) 
+	result = device.takeSnapshot()
+	mr.sleep(4.0) 
+	result.writeToFile('D:/testmonkeyrunner/carame-start-close/'+str(i)+' .png','png')	
+	mr.sleep(2.0)
+	device.press('KEYCODE_HOME','DOWN_AND_UP')
+	mr.sleep(3.0)
+	print (i)
+ 
+print 'test is ok'
